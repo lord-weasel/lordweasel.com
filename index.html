@@ -238,6 +238,23 @@
       color: var(--black);
       padding: 100px 0 80px;
       border-bottom: 2px solid #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #wave-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-grid {
@@ -245,7 +262,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 48px;
       align-items: center;
-      padding: 0 clamp(24px, 6vw, 80px);
+      padding: 80px clamp(24px, 6vw, 80px) 0;
     }
 
     .hero-eyebrow {
@@ -645,6 +662,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <canvas id="wave-canvas"></canvas>
   <div class="container hero-grid">
     <div class="hero-content">
       <p class="hero-eyebrow">Welcome to</p>
@@ -855,5 +873,63 @@
   });
 </script>
 
+
+<script>
+  (function() {
+    const c = document.getElementById("wave-canvas");
+    const ctx = c.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+
+    const waves = [
+      { color:"#d20093", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:500, yo:60,  p:1093.08 },
+      { color:"#70008a", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:376, yo:50,  p:1119.97 },
+      { color:"#220596", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:82,  yo:40,  p:1155.00 },
+      { color:"#0e3db9", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:187, yo:30,  p:1320.00 },
+      { color:"#e23139", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:217, yo:20,  p:1619.55 },
+      { color:"#e4563a", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:107, yo:10,  p:1813.04 },
+      { color:"#e9713c", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:348, yo:0,   p:2185.54 }
+    ];
+
+    function resize() {
+      const hero = c.parentElement;
+      const w = hero.offsetWidth;
+      const h = hero.offsetHeight;
+      c.width = w * dpr;
+      c.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    function draw() {
+      const hero = c.parentElement;
+      const w = hero.offsetWidth;
+      const h = hero.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const wa of waves) {
+        ctx.fillStyle = wa.color;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+
+        for (let i = 0; i <= w; i++) {
+          const xp = i + wa.xo;
+          let y = Math.sin(xp * wa.freq + wa.p);
+          y += Math.sin(xp * wa.freq * 0.4 + wa.p * 0.7) * wa.irr;
+          ctx.lineTo(i, y * wa.amp + wa.amp + wa.yo);
+        }
+
+        ctx.lineTo(w, 0);
+        ctx.fill();
+        wa.p += wa.speed;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  })();
+</script>
 </body>
 </html>
