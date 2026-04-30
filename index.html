@@ -23,27 +23,18 @@
   --white: #ffffff;
   --black: #0a0a0a;
   --nav-h: 64px;
-
-  /* Type scale */
-  --fs-label:    11px;
-  --fs-nav:      13px;
-  --fs-body:     15px;
-  --fs-card-h:   22px;
-  --fs-logo:     22px;
-  --fs-section:  clamp(32px, 4vw, 52px);
-  --fs-hero:     clamp(56px, 7vw, 96px);
+  --fs-label:   11px;
+  --fs-nav:     13px;
+  --fs-body:    15px;
+  --fs-card-h:  22px;
+  --fs-logo:    22px;
+  --fs-section: clamp(32px, 4vw, 52px);
+  --fs-hero:    clamp(56px, 7vw, 96px);
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  width: 100%;
-}
+.container { max-width: 1100px; margin: 0 auto; width: 100%; }
 
-html {
-  scroll-behavior: smooth;
-  background: var(--white);
-}
+html { scroll-behavior: smooth; background: var(--white); }
 
 body {
   font-family: 'DM Sans', sans-serif;
@@ -53,7 +44,7 @@ body {
   padding-top: var(--nav-h);
 }
 
-/* ══════════════ NAV ══════════════ */
+/* NAV */
 .navbar::before {
   content: '';
   position: fixed;
@@ -67,9 +58,7 @@ body {
 
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 200;
   height: var(--nav-h);
   background: var(--white);
@@ -110,14 +99,12 @@ body {
   color: var(--black);
 }
 
-.nav-desktop {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-}
+.nav-desktop { display: flex; align-items: center; gap: 2px; flex: 1; }
 
 .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: var(--fs-nav);
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -130,18 +117,11 @@ body {
   white-space: nowrap;
 }
 
-.nav-link { display: inline-flex; align-items: center; gap: 6px; }
 .nav-link svg { width: 13px; height: 13px; flex-shrink: 0; }
 .nav-link:hover { background: var(--black); color: var(--white); }
 .nav-link.active { background: var(--black); color: var(--white); }
 
-.nav-divider {
-  width: 1px;
-  height: 26px;
-  background: #ddd;
-  margin: 0 14px;
-  flex-shrink: 0;
-}
+.nav-divider { width: 1px; height: 26px; background: #ddd; margin: 0 14px; flex-shrink: 0; }
 
 .nav-admin-label {
   font-size: var(--fs-label);
@@ -155,6 +135,9 @@ body {
 }
 
 .nav-admin-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: var(--fs-nav);
   font-weight: 500;
   letter-spacing: 0.04em;
@@ -165,9 +148,6 @@ body {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 5px;
   margin-left: 4px;
   white-space: nowrap;
   flex-shrink: 0;
@@ -207,19 +187,16 @@ body {
 .nav-hamburger span:nth-child(1) { transform: translateY(-7px); }
 .nav-hamburger span:nth-child(2) { transform: translateY(0); }
 .nav-hamburger span:nth-child(3) { transform: translateY(7px); }
-
-/* Open state — clean X, middle bar fully hidden */
 .nav-hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
 
-/* Mobile drawer — clipped below nav, never above viewport */
+/* Mobile drawer */
 .nav-mobile {
   display: none;
   position: fixed;
   top: var(--nav-h);
-  left: 0;
-  right: 0;
+  left: 0; right: 0;
   background: var(--white);
   border-bottom: 2px solid var(--black);
   z-index: 198;
@@ -231,10 +208,7 @@ body {
   transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
 }
 
-.nav-mobile.open {
-  max-height: 80vh;
-  padding: 16px 24px 24px;
-}
+.nav-mobile.open { max-height: 80vh; padding: 16px 24px 24px; }
 
 .nav-mobile .nav-link {
   font-size: var(--fs-body);
@@ -242,13 +216,10 @@ body {
   border-radius: 6px;
   display: flex;
 }
+
 .nav-mobile .nav-link svg { width: 16px; height: 16px; }
 
-.nav-mobile-divider {
-  height: 1px;
-  background: #eee;
-  margin: 10px 0;
-}
+.nav-mobile-divider { height: 1px; background: #eee; margin: 10px 0; }
 
 .nav-mobile-admin-label {
   font-size: var(--fs-label);
@@ -260,20 +231,10 @@ body {
   margin-bottom: 8px;
 }
 
-.nav-mobile-admin-links {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  padding: 0 6px;
-}
+.nav-mobile-admin-links { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 6px; }
+.nav-mobile-admin-links .nav-admin-link { margin-left: 0; font-size: var(--fs-nav); padding: 8px 14px; }
 
-.nav-mobile-admin-links .nav-admin-link {
-  margin-left: 0;
-  font-size: var(--fs-nav);
-  padding: 8px 14px;
-}
-
-/* ══════════════ HERO ══════════════ */
+/* HERO */
 .hero {
   background: var(--white);
   color: var(--black);
@@ -281,7 +242,7 @@ body {
   border-bottom: 2px solid #eee;
 }
 
-.hero .container {
+.hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 48px;
@@ -330,19 +291,12 @@ body {
   color: #bbb;
 }
 
-/* ══════════════ SECTIONS ══════════════
-   Page bg stays white. Each section is a centered
-   card with a colored border and tinted interior.
-   All color-mix ratios are identical (8% tint, 25% border).
-══════════════════════════════════════ */
-
-/* Outer row — white page bg, vertical rhythm */
+/* SECTIONS */
 .section {
   background: var(--white);
   padding: 48px clamp(24px, 6vw, 80px);
 }
 
-/* The card itself — centered, max-width, colored box */
 .section-card {
   max-width: 980px;
   margin: 0 auto;
@@ -352,7 +306,6 @@ body {
   background: color-mix(in srgb, var(--accent) 8%, white);
 }
 
-/* Full-width colored header band at top of card */
 .section-header {
   background: var(--accent);
   color: var(--white);
@@ -381,7 +334,6 @@ body {
   margin: 0;
 }
 
-/* Body content inside the card — vertical bar is an inset element */
 .section-inner {
   padding: 40px 40px 40px 56px;
   position: relative;
@@ -415,7 +367,6 @@ body {
   color: #333;
 }
 
-/* Per-section accent colors */
 .s1 { --accent: #E9713C; }
 .s2 { --accent: #E4563A; }
 .s3 { --accent: #E23139; }
@@ -424,18 +375,10 @@ body {
 .s6 { --accent: #70008A; }
 .s7 { --accent: #D20093; }
 
-/* ══ Two-col layout ══ */
-.two-col {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
-
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
 .two-col.flip { direction: rtl; }
 .two-col.flip > * { direction: ltr; }
 
-/* Image placeholder */
 .col-img-placeholder {
   aspect-ratio: 16/10;
   border: 3px dashed var(--accent);
@@ -450,13 +393,7 @@ body {
   color: color-mix(in srgb, var(--accent) 60%, white);
 }
 
-/* ══ Cards ══ */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin-top: 32px;
-}
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
 
 .card {
   border: 3px solid var(--accent);
@@ -473,20 +410,9 @@ body {
   color: var(--accent);
 }
 
-.card p {
-  font-size: var(--fs-body);
-  line-height: 1.65;
-  color: #444;
-  max-width: 100%;
-}
+.card p { font-size: var(--fs-body); line-height: 1.65; color: #444; max-width: 100%; }
 
-/* ══ Services grid ══ */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 32px;
-}
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
 
 .service-item {
   border: 3px solid var(--accent);
@@ -501,10 +427,7 @@ body {
   gap: 8px;
 }
 
-.service-item:hover {
-  background: var(--accent);
-  color: var(--white);
-}
+.service-item:hover { background: var(--accent); color: var(--white); }
 
 .service-name {
   font-family: 'Bebas Neue', sans-serif;
@@ -535,31 +458,36 @@ body {
 }
 
 .service-item:hover .service-arrow { opacity: 1; transform: translateX(4px); color: var(--white); }
-```
 
-/* ══ CTA button ══ */
 .btn-accent {
-display: inline-block;
-margin-top: 28px;
-padding: 12px 26px;
-background: var(–accent);
-color: var(–white);
-border-radius: 4px;
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: var(–fs-body);
-letter-spacing: 0.08em;
-text-decoration: none;
-transition: opacity 0.15s;
+  display: inline-block;
+  margin-top: 28px;
+  padding: 12px 26px;
+  background: var(--accent);
+  color: var(--white);
+  border-radius: 4px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: var(--fs-body);
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: opacity 0.15s;
 }
 
-```
 .btn-accent:hover { opacity: 0.85; }
 
-/* ══════════════ FOOTER ══════════════ */
+/* FOOTER */
 footer {
   background: var(--black);
   color: var(--white);
   padding: 36px clamp(24px, 6vw, 80px);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .footer-logo {
@@ -582,22 +510,7 @@ footer {
 
 .footer-links a:hover { color: var(--white); }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-}
-
-.footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-/* ══════════════ ANIMATIONS ══════════════ */
+/* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -608,11 +521,11 @@ footer {
 .hero-sub     { animation: fadeUp 0.55s 0.25s ease both; }
 .hero-right   { animation: fadeUp 0.55s 0.3s  ease both; }
 
-/* ══════════════ RESPONSIVE ══════════════ */
+/* RESPONSIVE */
 @media (max-width: 860px) {
-  .nav-desktop  { display: none; }
+  .nav-desktop   { display: none; }
   .nav-hamburger { display: flex; }
-  .nav-mobile   { display: flex; }
+  .nav-mobile    { display: flex; }
 
   .hero { padding: 56px 5vw; }
   .hero-grid { grid-template-columns: 1fr; }
@@ -640,7 +553,7 @@ footer {
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
+<!-- NAV -->
 
 <header class="navbar">
   <a href="https://lordweasel.com" class="nav-logo">
@@ -736,210 +649,197 @@ footer {
   </div>
 </nav>
 
-<!-- ══ HERO — white, no accent ══ -->
+<!-- HERO -->
 
 <section class="hero">
   <div class="container hero-grid">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Welcome to</p>
-    <h1>Lord<br>Weasel<br>.com</h1>
-    <p class="hero-sub">Text.</p>
-  </div>
-  <div class="hero-right">
-    <div class="hero-img-placeholder"></div>
-  </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Welcome to</p>
+      <h1>Lord<br>Weasel<br>.com</h1>
+      <p class="hero-sub">Text.</p>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-placeholder"></div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S1 — #E9713C orange — About ══ -->
+<!-- S1 #E9713C orange — About -->
 
 <section class="section s1" id="about">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">About</span>
-    <h2>Who is Wesley?</h2>
-  </div>
-  <div class="section-inner">
-    <div class="two-col">
-      <div>
-        <p>Text.</p>
-      </div>
-      <div class="col-img-placeholder"></div>
+    <div class="section-header">
+      <span class="section-header-label">About</span>
+      <h2>Who is Wesley?</h2>
     </div>
-  </div>
+    <div class="section-inner">
+      <div class="two-col">
+        <div><p>Text.</p></div>
+        <div class="col-img-placeholder"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S2 — #E4563A dark orange — Projects ══ -->
+<!-- S2 #E4563A dark orange — Projects -->
 
 <section class="section s2" id="projects">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">Projects</span>
-    <h2>What's running</h2>
-  </div>
-  <div class="section-inner">
-    <p>Text.</p>
-    <div class="services-grid">
-      <a href="https://cloud.lordweasel.com" class="service-item">
-        <span class="service-name">Weasel Cloud</span>
-        <span class="service-desc">Text.</span>
-        <span class="service-arrow">→</span>
-      </a>
-      <a href="https://wiki.lordweasel.com" class="service-item">
-        <span class="service-name">MemeWiki</span>
-        <span class="service-desc">Text.</span>
-        <span class="service-arrow">→</span>
-      </a>
-      <a href="https://lordweasel.com/weaselai" class="service-item">
-        <span class="service-name">Weasel AI</span>
-        <span class="service-desc">Text.</span>
-        <span class="service-arrow">→</span>
-      </a>
-      <a href="/oldwebpage.html" class="service-item">
-        <span class="service-name">Old Webpage</span>
-        <span class="service-desc">Text.</span>
-        <span class="service-arrow">→</span>
-      </a>
+    <div class="section-header">
+      <span class="section-header-label">Projects</span>
+      <h2>What's running</h2>
     </div>
-  </div>
+    <div class="section-inner">
+      <p>Text.</p>
+      <div class="services-grid">
+        <a href="https://cloud.lordweasel.com" class="service-item">
+          <span class="service-name">Weasel Cloud</span>
+          <span class="service-desc">Text.</span>
+          <span class="service-arrow">→</span>
+        </a>
+        <a href="https://wiki.lordweasel.com" class="service-item">
+          <span class="service-name">MemeWiki</span>
+          <span class="service-desc">Text.</span>
+          <span class="service-arrow">→</span>
+        </a>
+        <a href="https://lordweasel.com/weaselai" class="service-item">
+          <span class="service-name">Weasel AI</span>
+          <span class="service-desc">Text.</span>
+          <span class="service-arrow">→</span>
+        </a>
+        <a href="/oldwebpage.html" class="service-item">
+          <span class="service-name">Old Webpage</span>
+          <span class="service-desc">Text.</span>
+          <span class="service-arrow">→</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S3 — #E23139 red — Interests ══ -->
+<!-- S3 #E23139 red — Interests -->
 
 <section class="section s3" id="interests">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">Interests</span>
-    <h2>Things I'm into</h2>
-  </div>
-  <div class="section-inner">
-    <p>Text.</p>
-    <div class="cards">
-      <div class="card">
-        <h3>Internet Culture</h3>
-        <p>Text.</p>
-      </div>
-      <div class="card">
-        <h3>Homelabbing</h3>
-        <p>Text.</p>
-      </div>
-      <div class="card">
-        <h3>Coming soon</h3>
-        <p>Text.</p>
+    <div class="section-header">
+      <span class="section-header-label">Interests</span>
+      <h2>Things I'm into</h2>
+    </div>
+    <div class="section-inner">
+      <p>Text.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Internet Culture</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Homelabbing</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Placeholder</h3>
+          <p>Text.</p>
+        </div>
       </div>
     </div>
   </div>
-  </div>
 </section>
 
-<!-- ══ S4 — #0E3DB9 light blue — Homelab ══ -->
+<!-- S4 #0E3DB9 light blue — Homelab -->
 
 <section class="section s4" id="homelab">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">The Homelab</span>
-    <h2>Under the hood</h2>
-  </div>
-  <div class="section-inner">
-    <div class="two-col flip">
-      <div>
-        <p>Text.</p>
-      </div>
-      <div class="col-img-placeholder"></div>
+    <div class="section-header">
+      <span class="section-header-label">The Homelab</span>
+      <h2>Under the hood</h2>
     </div>
-  </div>
+    <div class="section-inner">
+      <div class="two-col flip">
+        <div><p>Text.</p></div>
+        <div class="col-img-placeholder"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S5 — #220596 dark blue — MemeWiki ══ -->
+<!-- S5 #220596 dark blue — MemeWiki -->
 
 <section class="section s5" id="memewiki">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">Featured Project</span>
-    <h2>MemeWiki</h2>
-  </div>
-  <div class="section-inner">
-    <div class="two-col">
-      <div>
-        <p>Text.</p>
-        <a href="https://wiki.lordweasel.com" class="btn-accent">Visit MemeWiki →</a>
-      </div>
-      <div class="col-img-placeholder"></div>
+    <div class="section-header">
+      <span class="section-header-label">Featured Project</span>
+      <h2>MemeWiki</h2>
     </div>
-  </div>
+    <div class="section-inner">
+      <div class="two-col">
+        <div>
+          <p>Text.</p>
+          <a href="https://wiki.lordweasel.com" class="btn-accent">Visit MemeWiki →</a>
+        </div>
+        <div class="col-img-placeholder"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S6 — #70008A purple — Placeholder ══ -->
+<!-- S6 #70008A purple — Placeholder -->
 
 <section class="section s6" id="extra">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">More</span>
-    <h2>Placeholder</h2>
-  </div>
-  <div class="section-inner">
-    <div class="two-col flip">
-      <div>
-        <p>Text.</p>
-      </div>
-      <div class="col-img-placeholder"></div>
+    <div class="section-header">
+      <span class="section-header-label">More</span>
+      <h2>Placeholder</h2>
     </div>
-  </div>
+    <div class="section-inner">
+      <div class="two-col flip">
+        <div><p>Text.</p></div>
+        <div class="col-img-placeholder"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══ S7 — #D20093 pink — Contact ══ -->
+<!-- S7 #D20093 pink — Contact -->
 
 <section class="section s7" id="contact">
   <div class="section-card">
-
-  <div class="section-header">
-    <span class="section-header-label">Contact & Links</span>
-    <h2>Get in touch</h2>
-  </div>
-  <div class="section-inner">
-    <p>Text.</p>
-    <div class="cards" style="margin-top: 28px;">
-      <div class="card">
-        <h3>GitHub</h3>
-        <p>Text.</p>
-      </div>
-      <div class="card">
-        <h3>Email</h3>
-        <p>Text.</p>
-      </div>
-      <div class="card">
-        <h3>Other</h3>
-        <p>Text.</p>
+    <div class="section-header">
+      <span class="section-header-label">Contact &amp; Links</span>
+      <h2>Get in touch</h2>
+    </div>
+    <div class="section-inner">
+      <p>Text.</p>
+      <div class="cards" style="margin-top: 28px;">
+        <div class="card">
+          <h3>GitHub</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Email</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Other</h3>
+          <p>Text.</p>
+        </div>
       </div>
     </div>
   </div>
-  </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
+<!-- FOOTER -->
 
 <footer>
   <div class="container footer-inner">
-  <div class="footer-logo">lordweasel.com</div>
-  <nav class="footer-links">
-    <a href="https://cloud.lordweasel.com">Weasel Cloud</a>
-    <a href="https://wiki.lordweasel.com">MemeWiki</a>
-    <a href="https://lordweasel.com/weaselai">Weasel AI</a>
-    <a href="https://pihole.lordweasel.com">Pi-hole</a>
-    <a href="https://kasm.lordweasel.com">Kasm</a>
-    <a href="https://terminal.lordweasel.com">Terminal</a>
-  </nav>
+    <div class="footer-logo">lordweasel.com</div>
+    <nav class="footer-links">
+      <a href="https://cloud.lordweasel.com">Weasel Cloud</a>
+      <a href="https://wiki.lordweasel.com">MemeWiki</a>
+      <a href="https://lordweasel.com/weaselai">Weasel AI</a>
+      <a href="https://pihole.lordweasel.com">Pi-hole</a>
+      <a href="https://kasm.lordweasel.com">Kasm</a>
+      <a href="https://terminal.lordweasel.com">Terminal</a>
+    </nav>
   </div>
 </footer>
 
