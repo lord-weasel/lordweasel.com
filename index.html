@@ -236,7 +236,7 @@
     .hero {
       background: var(--white);
       color: var(--black);
-      padding: 100px clamp(24px, 6vw, 80px) 80px;
+      padding: 100px 0 80px;
       border-bottom: 2px solid #eee;
     }
 
@@ -245,6 +245,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 48px;
       align-items: center;
+      padding: 0 clamp(24px, 6vw, 80px);
     }
 
     .hero-eyebrow {
@@ -477,7 +478,7 @@
     footer {
       background: var(--black);
       color: var(--white);
-      padding: 36px clamp(24px, 6vw, 80px);
+      padding: 36px 0;
     }
 
     .footer-inner {
@@ -486,6 +487,7 @@
       justify-content: space-between;
       gap: 24px;
       flex-wrap: wrap;
+      padding: 0 clamp(24px, 6vw, 80px);
     }
 
     .footer-logo {
@@ -525,13 +527,13 @@
       .nav-hamburger { display: flex; }
       .nav-mobile    { display: flex; }
 
-      .hero { padding: 56px 5vw; }
+      .hero { padding: 56px 0; }
       .hero-grid { grid-template-columns: 1fr; }
       .hero-right { justify-content: flex-start; }
       .hero-img-placeholder { max-width: 100%; }
 
       .section { padding: 28px 5vw; }
-      footer { padding: 28px 5vw; }
+      footer { padding: 28px 0; }
       .section-header { padding: 22px 24px; }
       .section-inner { padding: 28px 20px 28px 44px; }
       .section-inner::before { left: 20px; top: 28px; bottom: 28px; }
@@ -569,11 +571,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       MemeWiki
     </a>
-    <a href="/weaselai.html" class="nav-link">
+    <a href="https://lordweasel.com/weaselai.html" class="nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
       Weasel AI
     </a>
-    <a href="/oldwebpage.html" class="nav-link">
+    <a href="https://lordweasel.com/oldhomepage.html" class="nav-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
       Old Webpage
     </a>
@@ -614,11 +616,11 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     MemeWiki
   </a>
-  <a href="https://lordweasel.com/weaselai" class="nav-link">
+  <a href="https://lordweasel.com/weaselai.html" class="nav-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
     Weasel AI
   </a>
-  <a href="/oldwebpage.html" class="nav-link">
+  <a href="https://lordweasel.com/oldhomepage.html" class="nav-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
     Old Webpage
   </a>
@@ -693,12 +695,12 @@
           <span class="service-desc">Text.</span>
           <span class="service-arrow">→</span>
         </a>
-        <a href="https://lordweasel.com/weaselai" class="service-item">
+        <a href="https://lordweasel.com/weaselai.html" class="service-item">
           <span class="service-name">Weasel AI</span>
           <span class="service-desc">Text.</span>
           <span class="service-arrow">→</span>
         </a>
-        <a href="/oldwebpage.html" class="service-item">
+        <a href="https://lordweasel.com/oldhomepage.html" class="service-item">
           <span class="service-name">Old Webpage</span>
           <span class="service-desc">Text.</span>
           <span class="service-arrow">→</span>
@@ -826,7 +828,7 @@
     <nav class="footer-links">
       <a href="https://cloud.lordweasel.com">Weasel Cloud</a>
       <a href="https://wiki.lordweasel.com">MemeWiki</a>
-      <a href="https://lordweasel.com/weaselai">Weasel AI</a>
+      <a href="https://lordweasel.com/weaselai.html">Weasel AI</a>
       <a href="https://pihole.lordweasel.com">Pi-hole</a>
       <a href="https://kasm.lordweasel.com">Kasm</a>
       <a href="https://terminal.lordweasel.com">Terminal</a>
