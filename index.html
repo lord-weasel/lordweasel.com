@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lordweasel.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c1: #E9713C;
+      --c2: #E4563A;
+      --c3: #E23139;
+      --c4: #0E3DB9;
+      --c5: #220596;
+      --c6: #70008A;
+      --c7: #D20093;
+      --white: #ffffff;
+      --black: #0a0a0a;
+      --nav-h: 64px;
+      --fs-label:   11px;
+      --fs-nav:     13px;
+      --fs-body:    15px;
+      --fs-card-h:  22px;
+      --fs-logo:    22px;
+      --fs-section: clamp(32px, 4vw, 52px);
+      --fs-hero:    clamp(56px, 7vw, 96px);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+    html { scroll-behavior: smooth; background: var(--white); }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+      padding-top: var(--nav-h);
+    }
+
+    /* NAV */
+    .navbar::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: var(--white);
+      z-index: 199;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: 32px;
+    }
+
+    .nav-logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .nav-logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-logo);
+      letter-spacing: 0.04em;
+      color: var(--black);
+    }
+
+    .nav-desktop { display: flex; align-items: center; gap: 2px; flex: 1; }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--fs-nav);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      padding: 6px 13px;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    .nav-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .nav-link:hover { background: var(--black); color: var(--white); }
+    .nav-link.active { background: var(--black); color: var(--white); }
+
+    .nav-divider { width: 1px; height: 26px; background: #ddd; margin: 0 14px; flex-shrink: 0; }
+
+    .nav-admin-label {
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #999;
+      margin-right: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-admin-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: var(--fs-nav);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #555;
+      padding: 5px 10px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      margin-left: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-admin-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .nav-admin-link:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    /* Hamburger */
+    .nav-hamburger {
+      display: none;
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--black);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+      transform-origin: center;
+      position: absolute;
+    }
+
+    .nav-hamburger span:nth-child(1) { transform: translateY(-7px); }
+    .nav-hamburger span:nth-child(2) { transform: translateY(0); }
+    .nav-hamburger span:nth-child(3) { transform: translateY(7px); }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(0) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(0) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--white);
+      border-bottom: 2px solid var(--black);
+      z-index: 198;
+      padding: 0 24px;
+      flex-direction: column;
+      gap: 4px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+    }
+
+    .nav-mobile.open { max-height: 80vh; padding: 16px 24px 24px; }
+
+    .nav-mobile .nav-link {
+      font-size: var(--fs-body);
+      padding: 10px 14px;
+      border-radius: 6px;
+      display: flex;
+    }
+
+    .nav-mobile .nav-link svg { width: 16px; height: 16px; }
+
+    .nav-mobile-divider { height: 1px; background: #eee; margin: 10px 0; }
+
+    .nav-mobile-admin-label {
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #999;
+      padding: 0 14px;
+      margin-bottom: 8px;
+    }
+
+    .nav-mobile-admin-links { display: flex; gap: 8px; flex-wrap: wrap; padding: 0 6px; }
+    .nav-mobile-admin-links .nav-admin-link { margin-left: 0; font-size: var(--fs-nav); padding: 8px 14px; }
+
+    /* HERO */
+    .hero {
+      background: var(--white);
+      color: var(--black);
+      padding: 100px 0 80px;
+      border-bottom: 2px solid #eee;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #wave-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 80px clamp(24px, 6vw, 80px) 0;
+    }
+
+    .hero-eyebrow {
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-hero);
+      line-height: 0.93;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: var(--fs-body);
+      font-weight: 300;
+      line-height: 1.75;
+      color: #555;
+      max-width: 400px;
+    }
+
+    .hero-right { display: flex; justify-content: flex-end; }
+
+    .hero-img {
+      width: 100%;
+      max-width: 340px;
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* SECTIONS */
+    .section {
+      background: var(--white);
+      padding: 48px clamp(24px, 6vw, 80px);
+    }
+
+    .section-card {
+      max-width: 980px;
+      margin: 0 auto;
+      border: 3px solid var(--accent);
+      border-radius: 10px;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--accent) 8%, white);
+    }
+
+    .section-header {
+      background: var(--accent);
+      color: var(--white);
+      padding: 28px 40px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .section-header-label {
+      font-size: var(--fs-label);
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-section);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      color: var(--white);
+      margin: 0;
+    }
+
+    .section-inner {
+      padding: 40px 40px 40px 56px;
+      position: relative;
+    }
+
+    .section-inner::before {
+      content: '';
+      position: absolute;
+      left: 40px;
+      top: 40px;
+      bottom: 40px;
+      width: 5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .section-inner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-section);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .section p {
+      font-size: var(--fs-body);
+      font-weight: 300;
+      line-height: 1.75;
+      max-width: 560px;
+      color: #333;
+    }
+
+    .s1 { --accent: #E9713C; }
+    .s2 { --accent: #E4563A; }
+    .s3 { --accent: #E23139; }
+    .s4 { --accent: #0E3DB9; }
+    .s5 { --accent: #220596; }
+    .s6 { --accent: #70008A; }
+    .s7 { --accent: #D20093; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .two-col.flip { direction: rtl; }
+    .two-col.flip > * { direction: ltr; }
+
+    .col-img-wrap {
+      position: relative;
+      aspect-ratio: 16/10;
+      border: 3px solid var(--accent);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .col-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 32px; }
+
+    .card {
+      border: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 24px 20px;
+      background: var(--white);
+    }
+
+    .card h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-card-h);
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .card p { font-size: var(--fs-body); line-height: 1.65; color: #444; max-width: 100%; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+
+    .service-item {
+      border: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 24px 20px;
+      text-decoration: none;
+      color: var(--black);
+      background: var(--white);
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .service-item:hover { background: var(--accent); color: var(--white); }
+
+    .service-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-card-h);
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      transition: color 0.18s;
+    }
+
+    .service-item:hover .service-name { color: var(--white); }
+
+    .service-desc {
+      font-size: var(--fs-body);
+      font-weight: 300;
+      color: #555;
+      line-height: 1.5;
+      transition: color 0.18s;
+    }
+
+    .service-item:hover .service-desc { color: rgba(255,255,255,0.85); }
+
+    .service-arrow {
+      margin-top: auto;
+      font-size: 18px;
+      color: var(--accent);
+      opacity: 0.5;
+      transition: opacity 0.18s, transform 0.18s, color 0.18s;
+    }
+
+    .service-item:hover .service-arrow { opacity: 1; transform: translateX(4px); color: var(--white); }
+
+    .btn-accent {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 12px 26px;
+      background: var(--accent);
+      color: var(--white);
+      border-radius: 4px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-body);
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .btn-accent:hover { opacity: 0.85; }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 0 clamp(24px, 6vw, 80px);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--fs-logo);
+      letter-spacing: 0.05em;
+      opacity: 0.5;
+    }
+
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+    .footer-links a {
+      font-size: var(--fs-nav);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: rgba(255,255,255,0.4);
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow { animation: fadeUp 0.55s 0.05s ease both; }
+    .hero h1      { animation: fadeUp 0.55s 0.15s ease both; }
+    .hero-sub     { animation: fadeUp 0.55s 0.25s ease both; }
+    .hero-right   { animation: fadeUp 0.55s 0.3s  ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .nav-desktop   { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-mobile    { display: flex; }
+
+      .hero { padding: 56px 0; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-right { justify-content: flex-start; }
+      .hero-img { max-width: 100%; }
+
+      .section { padding: 28px 5vw; }
+      footer { padding: 28px 0; }
+      .section-header { padding: 22px 24px; }
+      .section-inner { padding: 28px 20px 28px 44px; }
+      .section-inner::before { left: 20px; top: 28px; bottom: 28px; }
+      .two-col, .two-col.flip { grid-template-columns: 1fr; direction: ltr; gap: 32px; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 540px) {
+      .cards { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .footer-links { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="navbar">
+  <a href="https://lordweasel.com" class="nav-logo">
+    <img src="assets/apple-touch-icon.png" alt="" class="nav-logo-img">
+    <span class="nav-logo-text">lordweasel</span>
+  </a>
+
+  <div class="nav-desktop">
+    <a href="https://lordweasel.com" class="nav-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="https://cloud.lordweasel.com" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      Weasel Cloud
+    </a>
+    <a href="https://wiki.lordweasel.com" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      MemeWiki
+    </a>
+    <a href="https://lordweasel.com/weaselai.html" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+      Weasel AI
+    </a>
+    <a href="https://lordweasel.com/oldhomepage.html" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Old Webpage
+    </a>
+
+    <div class="nav-divider"></div>
+    <span class="nav-admin-label">Wesley</span>
+
+    <a href="https://pihole.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Pi-hole
+    </a>
+    <a href="https://kasm.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Kasm
+    </a>
+    <a href="https://terminal.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      Terminal
+    </a>
+  </div>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile drawer -->
+<nav class="nav-mobile" id="mobileNav">
+  <a href="https://lordweasel.com" class="nav-link active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a href="https://cloud.lordweasel.com" class="nav-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+    Weasel Cloud
+  </a>
+  <a href="https://wiki.lordweasel.com" class="nav-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+    MemeWiki
+  </a>
+  <a href="https://lordweasel.com/weaselai.html" class="nav-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+    Weasel AI
+  </a>
+  <a href="https://lordweasel.com/oldhomepage.html" class="nav-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    Old Webpage
+  </a>
+  <div class="nav-mobile-divider"></div>
+  <p class="nav-mobile-admin-label">Wesley</p>
+  <div class="nav-mobile-admin-links">
+    <a href="https://pihole.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      Pi-hole
+    </a>
+    <a href="https://kasm.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Kasm
+    </a>
+    <a href="https://terminal.lordweasel.com" class="nav-admin-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      Terminal
+    </a>
+  </div>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="wave-canvas"></canvas>
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Welcome to</p>
+      <h1>Lord<br>Weasel<br>.com</h1>
+      <p class="hero-sub">Hi, my name is Wesley Arnett. Online I go by Lord Weasel or just Weasel. I'm extremely hot and have lots of girlfriends. This website is where I post my creations and experiment with homelabbing!</p>
+    </div>
+    <div class="hero-right">
+      <img src="assets/apple-touch-icon.png" alt="" class="hero-img">
+    </div>
+  </div>
+</section>
+
+
+<!-- S1 #E9713C orange — About -->
+<section class="section s1" id="about">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">About</span>
+      <h2>What's This Website?</h2>
+    </div>
+    <div class="section-inner">
+      <div class="two-col">
+        <div><p>This website is my personal hub for hosting my projects and learning how the Internet works. Some services on here are just for me, sorry!</p></div>
+        <div class="col-img-wrap"><img src="assets/apple-touch-icon.png" alt="" class="col-img"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S2 #E4563A dark orange — Projects -->
+<section class="section s2" id="projects">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">Services</span>
+      <h2>What's running</h2>
+    </div>
+    <div class="section-inner">
+      <p>Here's all the parts of my website anyone is free to view and interact with!</p>
+      <div class="services-grid">
+        <a href="https://cloud.lordweasel.com" class="service-item">
+          <span class="service-name">Weasel Cloud</span>
+          <span class="service-desc">My personal cloud storage—with a public folder!</span>
+          <span class="service-arrow">➡</span>
+        </a>
+        <a href="https://wiki.lordweasel.com" class="service-item">
+          <span class="service-name">MemeWiki</span>
+          <span class="service-desc">A wiki explaining memes! Anyone is free to add and edit!.</span>
+          <span class="service-arrow">➡</span>
+        </a>
+        <a href="https://lordweasel.com/weaselai.html" class="service-item">
+          <span class="service-name">Weasel AI</span>
+          <span class="service-desc">My own VERY intelligent AI. Doesn't waste water; unless you count tears.</span>
+          <span class="service-arrow">➡</span>
+        </a>
+        <a href="https://lordweasel.com/oldhomepage.html" class="service-item">
+          <span class="service-name">Old Webpage</span>
+          <span class="service-desc">This is what my homepage used to look like. Pretty awesome sauce if you ask me!</span>
+          <span class="service-arrow">➡</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S3 #E23139 red — Interests -->
+<section class="section s3" id="interests">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">Interests</span>
+      <h2>Things I'm into</h2>
+    </div>
+    <div class="section-inner">
+      <p>Text.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Internet Culture</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Homelabbing</h3>
+          <p>Text.</p>
+        </div>
+        <div class="card">
+          <h3>Placeholder</h3>
+          <p>Text.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S4 #0E3DB9 light blue — Homelab -->
+<section class="section s4" id="homelab">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">The Homelab</span>
+      <h2>Under the hood</h2>
+    </div>
+    <div class="section-inner">
+      <div class="two-col flip">
+        <div><p>Text.</p></div>
+        <div class="col-img-wrap"><img src="assets/apple-touch-icon.png" alt="" class="col-img"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S5 #220596 dark blue — MemeWiki -->
+<section class="section s5" id="memewiki">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">Featured Project</span>
+      <h2>MemeWiki</h2>
+    </div>
+    <div class="section-inner">
+      <div class="two-col">
+        <div>
+          <p>Text.</p>
+          <a href="https://wiki.lordweasel.com" class="btn-accent">Visit MemeWiki →</a>
+        </div>
+        <div class="col-img-wrap"><img src="assets/apple-touch-icon.png" alt="" class="col-img"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S6 #70008A purple — Placeholder -->
+<section class="section s6" id="extra">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">More</span>
+      <h2>Placeholder</h2>
+    </div>
+    <div class="section-inner">
+      <div class="two-col flip">
+        <div><p>Text.</p></div>
+        <div class="col-img-wrap"><img src="assets/apple-touch-icon.png" alt="" class="col-img"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- S7 #D20093 pink — Contact -->
+<section class="section s7" id="contact">
+  <div class="section-card">
+    <div class="section-header">
+      <span class="section-header-label">Contact &amp; Links</span>
+      <h2>Get in touch</h2>
+    </div>
+    <div class="section-inner">
+      <p>Text.</p>
+      <div class="cards" style="margin-top: 28px;">
+        <div class="card">
+          <h3>Email</h3>
+          <p>wesley@lordweasel.com</p>
+        </div>
+        <div class="card">
+          <h3>Phone Number</h3>
+          <p>+1 (606) 271-4350</p>
+        </div>
+        <div class="card">
+          <h3>Instagram (personal)</h3>
+          <p>@lordweasely</p>
+        </div>
+        <div class="card">
+          <h3>Instagram (business)</h3>
+          <p>@weaselcustomengravings</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">lordweasel.com</div>
+    <nav class="footer-links">
+      <a href="https://cloud.lordweasel.com">Weasel Cloud</a>
+      <a href="https://wiki.lordweasel.com">MemeWiki</a>
+      <a href="https://lordweasel.com/weaselai.html">Weasel AI</a>
+      <a href="https://pihole.lordweasel.com">Pi-hole</a>
+      <a href="https://kasm.lordweasel.com">Kasm</a>
+      <a href="https://terminal.lordweasel.com">Terminal</a>
+    </nav>
+  </div>
+</footer>
+
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  });
+
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+</script>
+
+
+<script>
+  (function() {
+    const c = document.getElementById("wave-canvas");
+    const ctx = c.getContext("2d");
+    const dpr = window.devicePixelRatio || 1;
+
+    const waves = [
+      { color:"#d20093", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:500, yo:60,  p:1093.08 },
+      { color:"#70008a", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:376, yo:50,  p:1119.97 },
+      { color:"#220596", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:82,  yo:40,  p:1155.00 },
+      { color:"#0e3db9", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:187, yo:30,  p:1320.00 },
+      { color:"#e23139", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:217, yo:20,  p:1619.55 },
+      { color:"#e4563a", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:107, yo:10,  p:1813.04 },
+      { color:"#e9713c", speed:0.01, amp:20, freq:0.02, irr:0.5, xo:348, yo:0,   p:2185.54 }
+    ];
+
+    function resize() {
+      const hero = c.parentElement;
+      const w = hero.offsetWidth;
+      const h = hero.offsetHeight;
+      c.width = w * dpr;
+      c.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+
+    function draw() {
+      const hero = c.parentElement;
+      const w = hero.offsetWidth;
+      const h = hero.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      for (const wa of waves) {
+        ctx.fillStyle = wa.color;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+
+        for (let i = 0; i <= w; i++) {
+          const xp = i + wa.xo;
+          let y = Math.sin(xp * wa.freq + wa.p);
+          y += Math.sin(xp * wa.freq * 0.4 + wa.p * 0.7) * wa.irr;
+          ctx.lineTo(i, y * wa.amp + wa.amp + wa.yo);
+        }
+
+        ctx.lineTo(w, 0);
+        ctx.fill();
+        wa.p += wa.speed;
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    draw();
+  })();
+</script>
+</body>
+</html>

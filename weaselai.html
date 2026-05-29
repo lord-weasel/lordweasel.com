@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Weasel AI</title>
+  <style>
+    body { background-color:#000066; color:#FFFFFF; font-family:"Comic Sans MS",sans-serif; margin:8px; padding:0; }
+    @keyframes flash {
+      0%   { color: yellow; }
+      50%  { color: purple; }
+      100% { color: yellow; }
+    }
+    #topBar a {
+      display: inline-block;
+      color: yellow;
+      text-decoration: underline;
+    }
+    #topBar a:hover {
+      animation: flash 0.3s infinite;
+    }
+    #topBar .current-page {
+      text-decoration: none;
+      color: yellow;
+      cursor: default;
+    }
+    .weasel-ai-box { color:#ffc800; font-weight:bold; }
+    .chat-container { max-width:800px; margin:20px auto; border:2px solid #FF00FF; background:#000099; padding:10px; }
+    .chat-header { text-align:center; font-size:24px; color:#FF0000; margin-bottom:10px; }
+    .chat-window { height:400px; overflow-y:auto; background:#CC0099; color:#FFFF99; padding:10px; border:2px solid #00FF00; margin-bottom:10px; font-family:"Comic Sans MS",sans-serif; line-height:1.5; }
+    .chat-input { width:calc(100% - 22px); padding:10px; border:2px solid #00FF00; background:#CC0099; color:#FFFF99; font-size:16px; font-family:"Papyrus",sans-serif; }
+    .chat-send { padding:10px 20px; font-size:16px; background:#990066; color:#FFCC33; border:2px solid #00FF00; cursor:pointer; font-family:"Papyrus",sans-serif; }
+    .weasel-response { color:#FFFF00; font-weight:bold; margin-top:5px; white-space:pre-wrap; }
+    .user-message { color:#FFCC33; font-weight:bold; margin-top:5px; white-space:pre-wrap; }
+    .error { color: #ff6666; font-weight: bold; margin-top:5px; }
+    .thinking-anim {
+      display: inline-block;
+      font-size: 1em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #FFCC33 0%, #FFCC33 25%, #fff 40%, #FFCC33 60%, #FFCC33 100%);
+      background-size: 300% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-move 1.6s ease-in-out infinite;
+      letter-spacing: 1px;
+    }
+    @keyframes gradient-move {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+  </style>
+</head>
+<body bgcolor="#000066" text="#FFFFFF" link="#00FF00" vlink="#FF00FF" alink="#FFFF00">
+
+  <center>
+    <table id="topBar" width="80%" bgcolor="#000099" border="2" cellspacing="0" cellpadding="4">
+      <tr>
+        <td align="center" bgcolor="#990099" width="20%">
+          <font color="#FFFF00" size="3" face="Comic Sans MS">
+            <a href="index.html"><b>[HOME]</b></a>
+          </font>
+        </td>
+        <td align="center" bgcolor="#660099" width="20%">
+          <font color="#00FF00" size="3" face="Comic Sans MS">
+            <a href="https://www.jw.org/en/"><b>[FAV WEBSITE]</b></a>
+          </font>
+        </td>
+        <td align="center" bgcolor="#990099" width="20%">
+          <font color="#FFFF00" size="3" face="Comic Sans MS">
+            <a href="live.html"><b>[LIVE]</b></a>
+          </font>
+        </td>
+        <td align="center" bgcolor="#660099" width="20%">
+          <font color="#00FF00" size="3" face="Comic Sans MS">
+            <span class="current-page"><b>[WEASEL AI]</b></span>
+          </font>
+        </td>
+      </tr>
+    </table>
+  </center>
+
+  <div class="chat-container">
+    <div class="chat-header">Weasel AI</div>
+    <div class="chat-window" id="chat-window"></div>
+    <div style="display:flex; align-items:center;">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Type your message here..." onkeydown="checkEnter(event)">
+      <button class="chat-send" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const WORKER_URL = "https://weaselai.z8wj25zw7n.workers.dev";
+    let chatHistory = [];
+    function append(text, cls) {
+      const w = document.getElementById('chat-window');
+      const d = document.createElement('div');
+      if (text === "Weasel AI is thinking...") {
+        d.innerHTML = `<span class=\"thinking-anim\">${text}</span>`;
+        d.className = cls;
+      } else {
+        d.textContent = text;
+        d.className = cls;
+      }
+      w.appendChild(d);
+      w.scrollTop = w.scrollHeight;
+      return d;
+    }
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const message = input.value.trim();
+      if (!message) return;
+      append("You: " + message, "user-message");
+      input.value = "";
+      chatHistory.push({ role: "user", content: message });
+      const typing = append("Weasel AI is thinking...", "weasel-response");
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: chatHistory })
+        });
+        const json = await res.json();
+        typing.remove();
+        if (json.reply) {
+          append("Weasel AI: " + json.reply, "weasel-response");
+          chatHistory.push({ role: "assistant", content: json.reply });
+        } else {
+          append("Weasel AI: (unexpected response) " + JSON.stringify(json), "error");
+        }
+      } catch (err) {
+        typing.textContent = "Error: " + err.message;
+        typing.className = "error";
+      }
+    }
+    function checkEnter(e) { if (e.key === "Enter") sendMessage(); }
+  </script>
+
+</body>
+</html>

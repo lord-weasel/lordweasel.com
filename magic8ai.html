@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Weasel AI</title>
+  <style>
+    body {
+      background-color: #000066;
+      color: #FFFFFF;
+      font-family: "Comic Sans MS", cursive;
+      margin: 0;
+      padding: 0;
+    }
+    @keyframes flash {
+      0%   { color: yellow; }
+      50%  { color: purple; }
+      100% { color: yellow; }
+    }
+    /* Style for the top bar */
+    #topBar {
+      width: 80%;
+      margin: auto;
+      border: 2px solid #FFFFFF;
+    }
+    #topBar td {
+      text-align: center;
+      padding: 5px;
+      font-size: 18px;
+    }
+    #topBar a {
+      display: inline-block;
+      color: yellow;
+      text-decoration: underline;
+    }
+    #topBar a:hover {
+      animation: flash 0.3s infinite;
+    }
+    /* Weasel AI box (non-link) */
+    .weasel-ai-box {
+      color: #FFFF00;
+      font-weight: bold;
+    }
+    /* Chat Styles */
+    .chat-container {
+      max-width: 800px;
+      margin: 20px auto;
+      border: 2px solid #FF00FF;
+      background-color: #000099;
+      padding: 10px;
+    }
+    .chat-header {
+      text-align: center;
+      font-size: 24px;
+      color: #FF0000;
+      margin-bottom: 10px;
+    }
+    .chat-window {
+      height: 400px;
+      overflow-y: auto;
+      background-color: #CC0099;
+      color: #FFFF99;
+      padding: 10px;
+      border: 2px solid #00FF00;
+      margin-bottom: 10px;
+      font-family: "Comic Sans MS", cursive;
+      line-height: 1.6;
+    }
+    .chat-input {
+      width: calc(100% - 22px);
+      padding: 10px;
+      border: 2px solid #00FF00;
+      background-color: #CC0099;
+      color: #FFFF99;
+      font-size: 16px;
+      font-family: "Papyrus", fantasy;
+    }
+    .chat-input::placeholder {
+      color: #FFFF99;
+      font-family: "Papyrus", fantasy;
+    }
+    .chat-send {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #990066;
+      color: #FFFF00;
+      border: 2px solid #00FF00;
+      cursor: pointer;
+      font-family: "Papyrus", fantasy;
+    }
+    .weasel-response {
+      color: #FFCC33;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <center>
+    <table id="topBar" bgcolor="#000099" border="2" cellspacing="0" cellpadding="4">
+      <tr>
+        <td align="center" bgcolor="#660099" width="20%">
+          <a href="index.html"><b>[HOME]</b></a>
+        </td>
+        <td align="center" bgcolor="#660099" width="20%">
+          <a href="fav-website.html"><b>[FAV WEBSITE]</b></a>
+        </td>
+        <td align="center" bgcolor="#990099" width="20%">
+          <a href="art.html"><b>[ART]</b></a>
+        </td>
+        <td align="center" bgcolor="#990099" width="20%">
+          <span class="weasel-ai-box">[WEASEL AI]</span>
+        </td>
+      </tr>
+    </table>
+  </center>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      Weasel AI
+    </div>
+    <div class="chat-window" id="chat-window">
+      <!-- Chat messages will appear here -->
+    </div>
+    <div style="display: flex; align-items: center;">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Type your message here..." onkeydown="checkEnter(event)">
+      <button class="chat-send" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const responses = [
+      "It is certain.",
+      "Without a doubt.",
+      "You may rely on it.",
+      "Yes – definitely!",
+      "Most likely.",
+      "Outlook good.",
+      "Yes!",
+      "Signs point to yes.",
+      "Reply hazy, try again.",
+      "Ask again later.",
+      "Better not tell you now...",
+      "Cannot predict now.",
+      "Concentrate and ask again.",
+      "Don't count on it.",
+      "My reply is no.",
+      "My sources say no.",
+      "Outlook not so good...",
+      "Very doubtful.",
+      "Absolutely not.",
+      "Yes, in the near future.",
+      "It’s unclear right now.",
+      "Don’t hold your breath.",
+      "The stars say yes.",
+      "I wouldn't count on it."
+    ];
+
+    function sendMessage() {
+      var input = document.getElementById('chat-input');
+      var chatWindow = document.getElementById('chat-window');
+      var message = input.value.trim();
+
+      if (message !== "") {
+        var userMsgDiv = document.createElement('div');
+        userMsgDiv.textContent = "You: " + message;
+        chatWindow.appendChild(userMsgDiv);
+        
+        input.value = "";
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        setTimeout(() => {
+          var typingDiv = document.createElement('div');
+          typingDiv.textContent = "Weasel AI is thinking";
+          chatWindow.appendChild(typingDiv);
+          
+          let dots = 0;
+          let typingInterval = setInterval(() => {
+            dots = (dots + 1) % 4;
+            typingDiv.textContent = "Weasel AI is thinking" + ".".repeat(dots);
+          }, 500);
+
+          setTimeout(() => {
+            clearInterval(typingInterval);
+            chatWindow.removeChild(typingDiv);
+
+            var aiMsgDiv = document.createElement('div');
+            aiMsgDiv.textContent = "Weasel AI: " + responses[Math.floor(Math.random() * responses.length)];
+            aiMsgDiv.classList.add("weasel-response");
+            chatWindow.appendChild(aiMsgDiv);
+
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+          }, 3500);
+        }, 750);
+      }
+    }
+
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+  </script>
+
+</body>
+</html>
