@@ -11,6 +11,7 @@
   <link rel="manifest" href="assets/manifest.json">
   <link rel="apple-touch-icon" href="assets/icon.svg">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <script src="assets/device.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -34,11 +35,11 @@
         <label class="search"><span>Search</span><input id="searchInput" type="search" placeholder="Search every field…" autocomplete="off"></label>
         <label><span>Location</span><select id="locationFilter"><option value="">All locations</option></select></label>
         <label><span>Status</span><select id="statusFilter"><option value="">All statuses</option><option>Paid</option><option>Unpaid</option><option>Overdue</option></select></label>
-        <label><span>Sort</span><select id="sortSelect"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="location">Location A–Z</option></select></label>
+        <label><span>Sort</span><select id="sortSelect"><option value="invoice">Invoice number</option><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="location">Location A–Z</option></select></label>
       </div>
       <div class="actionbar">
         <button id="selectButton" class="secondary">Select</button>
-        <div id="selectionActions" hidden><span id="selectionCount">0 selected</span><button id="deleteSelected" class="danger">Delete selected</button><button id="cancelSelect" class="secondary">Cancel</button></div>
+        <div id="selectionActions" hidden><span id="selectionCount">0 selected</span><button id="togglePaidSelected" class="primary">Mark as paid</button><button id="deleteSelected" class="danger">Delete selected</button><button id="cancelSelect" class="secondary">Cancel</button></div>
         <button id="notifyButton" class="secondary">Enable overdue alerts</button>
       </div>
 
@@ -49,7 +50,7 @@
 
       <div id="recordsWrap" class="records-wrap" hidden>
         <table>
-          <thead><tr><th class="selection-cell"></th><th>Date</th><th>Location</th><th>Invoice</th><th class="money">Cash</th><th>Paid</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
+          <thead><tr><th class="selection-cell"></th><th>Date</th><th>Location</th><th>Invoice</th><th class="money">Cash</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
           <tbody id="recordRows"></tbody>
         </table>
         <div id="recordCards" class="cards"></div>
@@ -65,7 +66,7 @@
         <label>Date <span aria-hidden="true">*</span><input id="dateInput" type="date" required></label>
         <label>Location <span aria-hidden="true">*</span><input id="locationInput" list="locationsList" required autocomplete="off"><datalist id="locationsList"></datalist></label>
         <label>Invoice number <span aria-hidden="true">*</span><input id="invoiceInput" required autocomplete="off"></label>
-        <label>Cash <span aria-hidden="true">*</span><input id="cashInput" type="number" min="0" step="0.01" inputmode="decimal" required placeholder="0.00"></label>
+        <label>Cash <span aria-hidden="true">*</span><input id="cashInput" type="text" inputmode="decimal" required placeholder="0.00"></label>
         <label class="full paid-control"><input id="paidInput" type="checkbox"> <span>Paid</span></label>
       </div>
       <p class="required-note">* Required field</p>
@@ -74,5 +75,6 @@
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="assets/app.js" defer></script>
+  <script src="assets/keyboard.js" defer></script>
 </body>
 </html>
