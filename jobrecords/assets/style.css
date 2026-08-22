@@ -442,12 +442,19 @@ dialog::backdrop {
     padding: 0;
     overflow: hidden;
     overscroll-behavior: none;
-    touch-action: manipulation;
+    touch-action: pan-y;
     border-radius: 18px 18px 0 0;
   }
 
   dialog .icon-button { display: none; }
-  #recordForm { width: 100%; max-height: none; overflow: hidden; }
+  #recordForm {
+    width: 100%;
+    max-height: calc(100dvh - 7rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
   #recordForm header { position: sticky; top: 0; z-index: 1; background: var(--surface); }
   #recordForm footer { position: sticky; bottom: 0; padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
   #recordForm footer button { flex: 1 1 0; min-height: 48px; }
