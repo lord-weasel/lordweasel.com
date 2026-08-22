@@ -11,7 +11,7 @@ document.addEventListener("keydown",event=>{
     }
     return;
   }
-  if(event.key!=="Enter"||window.isMobileDevice())return;
+  if(event.key!=="Enter"||!matchMedia("(min-width: 761px)").matches)return;
   if(document.getElementById("recordDialog").open||event.target.closest("input,select,button,a"))return;
   event.preventDefault();
   document.getElementById("addButton").click();
@@ -28,7 +28,7 @@ document.body.appendChild(floatingScrollbar);
 let syncingScroll=false;
 function updateFloatingScrollbar(){
   const rect=recordsWrap.getBoundingClientRect();
-  const needed=!window.isMobileDevice()&&!recordsWrap.hidden&&recordsWrap.scrollWidth>recordsWrap.clientWidth&&rect.top<innerHeight&&rect.bottom>innerHeight;
+  const needed=matchMedia("(min-width: 761px)").matches&&!recordsWrap.hidden&&recordsWrap.scrollWidth>recordsWrap.clientWidth&&rect.top<innerHeight&&rect.bottom>innerHeight;
   floatingScrollbar.hidden=!needed;
   if(!needed)return;
   floatingScrollbar.style.left=`${Math.max(0,rect.left)}px`;
