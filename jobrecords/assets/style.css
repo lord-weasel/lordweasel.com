@@ -252,6 +252,8 @@ dialog::backdrop {
   border-bottom: 1px solid var(--line);
 }
 
+#recordForm header:focus { outline: none; }
+
 .eyebrow { margin: 0 0 .35rem; color: var(--brand); font-size: .62rem; font-weight: 700; letter-spacing: .1em; }
 #recordForm h2 { margin: 0; font-family: Georgia, serif; font-size: 1.8rem; }
 .required-note { margin: 0; padding: 1rem 1.4rem 0; color: var(--muted); font-size: .75rem; }
@@ -271,8 +273,34 @@ dialog::backdrop {
   background: color-mix(in srgb, var(--brand) 7%, var(--surface));
 }
 
-.paid-control input { width: 22px; height: 22px; min-height: 0; margin: 0; padding: 0; accent-color: var(--brand); }
-.paid-control span { color: var(--ink); font-size: 1rem; }
+.paid-control input {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid #8a9193;
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.paid-control input:checked { border-color: var(--brand); background: var(--brand); }
+.paid-control input:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.form-grid .paid-control > span { color: var(--ink); font-size: 1rem; }
 
 #recordForm footer {
   display: flex;
@@ -393,6 +421,9 @@ dialog::backdrop {
   }
 
   .records-wrap tbody tr { cursor: pointer; }
+  .records-wrap tbody tr { -webkit-tap-highlight-color: transparent; }
+  .records-wrap tbody tr:focus,
+  .records-wrap tbody tr:focus-visible { outline: none; }
   .records-wrap tbody td { background-clip: border-box; }
   .records-wrap .row-paid > td { background: var(--surface); }
   .records-wrap .row-unpaid > td { background: var(--unpaid-bg); }
@@ -403,25 +434,43 @@ dialog::backdrop {
     inset: auto 0 0;
     width: 100%;
     max-width: none;
-    max-height: min(92dvh, 760px);
+    max-height: calc(100dvh - 7rem);
     margin: auto 0 0;
-    padding-bottom: env(safe-area-inset-bottom);
+    padding: 0;
+    overflow: hidden;
     border-radius: 18px 18px 0 0;
   }
 
   dialog .icon-button { display: none; }
-  #recordForm { max-height: min(92dvh, 760px); overflow-y: auto; overscroll-behavior: contain; }
+  #recordForm { width: 100%; max-height: none; overflow: hidden; }
   #recordForm header { position: sticky; top: 0; z-index: 1; background: var(--surface); }
-  #recordForm footer { position: sticky; bottom: 0; border-top: 1px solid var(--line); background: var(--surface); }
+  #recordForm footer { position: sticky; bottom: 0; padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
   #recordForm footer button { flex: 1 1 0; min-height: 48px; }
   #deleteFromForm { margin-right: 0; }
 
-  .form-grid { grid-template-columns: 1fr; gap: .9rem; }
+  .form-grid { width: 100%; min-width: 0; grid-template-columns: minmax(0, 1fr); gap: .9rem; overflow-x: hidden; }
   .form-grid .full { grid-column: auto; }
   .form-grid label,
-  .form-grid input { min-width: 0; max-width: 100%; }
-  #dateInput { width: 100%; text-align: left; }
-  #dateInput::-webkit-date-and-time-value { margin: 0; text-align: left; }
+  .form-grid input { display: block; width: 100%; min-width: 0; max-width: 100%; }
+  .form-grid .paid-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+  .paid-control input {
+    display: block;
+    width: 22px;
+    min-width: 22px;
+    max-width: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    margin: 0;
+  }
+  #dateInput { inline-size: 100%; min-inline-size: 0; max-inline-size: 100%; height: 48px; padding: .65rem .75rem; appearance: none; -webkit-appearance: none; line-height: normal; text-align: left; }
+  #dateInput::-webkit-date-and-time-value { display: block; min-width: 0; margin: 0; padding: 0; text-align: left; }
+  #dateInput::-webkit-datetime-edit { min-width: 0; padding: 0; }
   .search input,
   .tools select,
   .form-grid input { font-size: 16px; }
