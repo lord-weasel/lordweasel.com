@@ -11,7 +11,6 @@
   <link rel="manifest" href="assets/manifest.json">
   <link rel="apple-touch-icon" href="assets/icon.svg">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <script src="assets/device.js"></script>
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -40,7 +39,6 @@
       <div class="actionbar">
         <button id="selectButton" class="secondary">Select</button>
         <div id="selectionActions" hidden><span id="selectionCount">0 selected</span><button id="togglePaidSelected" class="primary">Mark as paid</button><button id="deleteSelected" class="danger">Delete selected</button><button id="cancelSelect" class="secondary">Cancel</button></div>
-        <button id="notifyButton" class="secondary">Enable overdue alerts</button>
       </div>
 
       <div id="emptyState" class="empty">
@@ -53,7 +51,6 @@
           <thead><tr><th class="selection-cell"></th><th>Date</th><th>Location</th><th>Invoice</th><th class="money">Cash</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr></thead>
           <tbody id="recordRows"></tbody>
         </table>
-        <div id="recordCards" class="cards"></div>
       </div>
     </section>
   </main>
@@ -62,6 +59,7 @@
     <form id="recordForm" method="dialog">
       <header><div><p class="eyebrow">JOB DETAILS</p><h2 id="formTitle">Add job</h2></div><button type="button" id="closeDialog" class="icon-button" aria-label="Close form" title="Close">×</button></header>
       <input id="recordId" type="hidden">
+      <p class="required-note">* Required fields</p>
       <div class="form-grid">
         <label>Date <span aria-hidden="true">*</span><input id="dateInput" type="date" required></label>
         <label>Location <span aria-hidden="true">*</span><input id="locationInput" list="locationsList" required autocomplete="off"><datalist id="locationsList"></datalist></label>
@@ -69,8 +67,7 @@
         <label>Cash <span aria-hidden="true">*</span><input id="cashInput" type="text" inputmode="decimal" required placeholder="0.00"></label>
         <label class="full paid-control"><input id="paidInput" type="checkbox"> <span>Paid</span></label>
       </div>
-      <p class="required-note">* Required field</p>
-      <footer><button type="button" id="cancelDialog" class="secondary">Cancel</button><button type="submit" class="primary">Save job</button></footer>
+      <footer><button type="button" id="deleteFromForm" class="danger" hidden>Delete</button><button type="button" id="cancelDialog" class="secondary">Cancel</button><button type="submit" class="primary">Save</button></footer>
     </form>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
