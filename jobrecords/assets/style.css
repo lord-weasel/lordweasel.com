@@ -379,6 +379,7 @@ dialog::backdrop {
     text-overflow: clip;
     -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - .75rem), transparent 100%);
     mask-image: linear-gradient(to right, #000 0, #000 calc(100% - .75rem), transparent 100%);
+    pointer-events: none;
   }
 
   .records-wrap .status {
@@ -415,6 +416,9 @@ dialog::backdrop {
 
   .form-grid { grid-template-columns: 1fr; gap: .9rem; }
   .form-grid .full { grid-column: auto; }
+  .search input,
+  .tools select,
+  .form-grid input { font-size: 16px; }
 
   .toast {
     top: var(--toast-top, calc(1rem + env(safe-area-inset-top)));
