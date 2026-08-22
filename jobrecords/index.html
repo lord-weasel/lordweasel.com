@@ -11,7 +11,7 @@
   <link rel="manifest" href="assets/manifest.json">
   <link rel="apple-touch-icon" href="assets/icon.svg">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="assets/style.css?v=20260822-5">
 </head>
 <body>
   <header class="topbar">
@@ -57,7 +57,7 @@
 
   <dialog id="recordDialog">
     <form id="recordForm" method="dialog">
-      <header><div><p class="eyebrow">JOB DETAILS</p><h2 id="formTitle">Add job</h2></div><button type="button" id="closeDialog" class="icon-button" aria-label="Close form" title="Close">×</button></header>
+      <header id="formHeader" tabindex="-1" autofocus><div><p class="eyebrow">JOB DETAILS</p><h2 id="formTitle">Add job</h2></div><button type="button" id="closeDialog" class="icon-button" aria-label="Close form" title="Close">×</button></header>
       <input id="recordId" type="hidden">
       <p class="required-note">* Required fields</p>
       <div class="form-grid">
@@ -71,7 +71,7 @@
     </form>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="assets/app.js" defer></script>
-  <script src="assets/keyboard.js" defer></script>
+  <script src="assets/app.js?v=20260822-5" defer></script>
+  <script src="assets/keyboard.js?v=20260822-5" defer></script>
 </body>
 </html>
