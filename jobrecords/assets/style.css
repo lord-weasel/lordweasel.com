@@ -448,15 +448,22 @@ dialog::backdrop {
 
   dialog .icon-button { display: none; }
   #recordForm {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-height: calc(100dvh - 7rem);
+    overflow: hidden;
+  }
+  #recordForm header { position: relative; z-index: 1; flex: 0 0 auto; background: var(--surface); }
+  #recordForm .form-body {
+    min-height: 0;
+    flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: auto;
-    overscroll-behavior: contain;
+    overscroll-behavior-y: contain;
     -webkit-overflow-scrolling: touch;
   }
-  #recordForm header { position: sticky; top: 0; z-index: 1; background: var(--surface); }
-  #recordForm footer { position: sticky; bottom: 0; padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
+  #recordForm footer { position: relative; z-index: 1; flex: 0 0 auto; padding-bottom: max(1.2rem, env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: var(--surface); }
   #recordForm footer button { flex: 1 1 0; min-height: 48px; }
   #deleteFromForm { margin-right: 0; }
 
