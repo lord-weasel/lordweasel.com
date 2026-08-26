@@ -11,7 +11,7 @@
   <link rel="manifest" href="assets/manifest.json">
   <link rel="apple-touch-icon" href="assets/icon.svg">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css?v=20260822-8">
+  <link rel="stylesheet" href="assets/style.css?v=20260826-9">
 </head>
 <body>
   <header class="topbar">
@@ -65,15 +65,18 @@
           <label>Date <span aria-hidden="true">*</span><input id="dateInput" type="date" required></label>
           <label>Location <span aria-hidden="true">*</span><input id="locationInput" list="locationsList" required autocomplete="off"><datalist id="locationsList"></datalist></label>
           <label>Invoice number <span aria-hidden="true">*</span><input id="invoiceInput" required autocomplete="off"></label>
-          <label>Cash <span aria-hidden="true">*</span><input id="cashInput" type="text" inputmode="decimal" required placeholder="0.00"></label>
-          <label class="full paid-control"><input id="paidInput" type="checkbox"> <span>Paid</span></label>
+          <label>Amount <span aria-hidden="true">*</span><span class="amount-input-wrap"><input id="cashInput" type="text" inputmode="decimal" required placeholder="0.00"><span id="salesTaxPreview" class="tax-preview" aria-live="polite"></span></span></label>
+          <div class="full record-options">
+            <label class="paid-control"><input id="paidInput" type="checkbox"> <span>Paid</span></label>
+            <label class="paid-control"><input id="salesTaxInput" type="checkbox" checked> <span>Sales Tax</span></label>
+          </div>
         </div>
       </div>
       <footer><button type="button" id="deleteFromForm" class="danger" hidden>Delete</button><button type="button" id="cancelDialog" class="secondary">Cancel</button><button type="submit" class="primary">Save</button></footer>
     </form>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="assets/app.js?v=20260822-8" defer></script>
+  <script src="assets/app.js?v=20260826-9" defer></script>
   <script src="assets/keyboard.js?v=20260822-8" defer></script>
 </body>
 </html>
