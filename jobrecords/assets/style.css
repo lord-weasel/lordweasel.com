@@ -190,6 +190,10 @@ th, td { padding: .9rem 1rem; border-bottom: 1px solid var(--line); text-align: 
 tbody tr:last-child td { border-bottom: 0; }
 th { color: var(--muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
 td.money, th.money { font-variant-numeric: tabular-nums; }
+.amount-stack { position: relative; display: inline-block; }
+.list-tax { position: absolute; top: calc(50% + .7rem); left: 50%; min-height: 0; padding: 0; border: 0; background: transparent; color: var(--muted); font-size: .68rem; font-weight: 400; line-height: 1.2; white-space: nowrap; transform: translateX(-50%); }
+.list-tax:hover { color: var(--ink); text-decoration: underline dotted; }
+.list-tax.off { font-style: italic; }
 
 .row-unpaid { background: var(--unpaid-bg); }
 .row-overdue { background: var(--overdue-bg); }
@@ -265,6 +269,7 @@ dialog::backdrop {
 .form-grid label { color: var(--ink); font-size: .85rem; }
 .form-grid label > span { color: var(--red); }
 
+.record-options { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); }
 .paid-control {
   display: flex;
   align-items: center;
@@ -304,6 +309,10 @@ dialog::backdrop {
 }
 
 .form-grid .paid-control > span { color: var(--ink); font-size: 1rem; }
+.amount-input-wrap { position: relative; display: block; margin-top: .4rem; }
+.amount-input-wrap #cashInput { margin-top: 0; padding-right: 6.5rem; }
+.tax-preview { position: absolute; top: 50%; right: 1rem; color: var(--muted) !important; font-size: .9rem; font-variant-numeric: tabular-nums; pointer-events: none; transform: translateY(-50%); }
+.tax-preview[hidden] { display: none; }
 
 #recordForm footer {
   display: flex;
@@ -413,6 +422,8 @@ dialog::backdrop {
     pointer-events: none;
   }
 
+  .records-wrap .list-tax { min-height: 0; font-size: .54rem; }
+
   .records-wrap .status {
     display: inline-block;
     width: min(58px, 100%);
@@ -478,6 +489,9 @@ dialog::backdrop {
     justify-content: flex-start;
     flex-wrap: nowrap;
   }
+  .form-grid .record-options { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .form-grid .record-options .paid-control { padding: .7rem; }
+  .form-grid .record-options .paid-control > span { width: auto; font-size: .9rem; white-space: nowrap; }
   .paid-control input {
     display: block;
     width: 22px;
